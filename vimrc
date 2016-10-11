@@ -38,6 +38,7 @@ Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
 Plugin 'vim-ruby/vim-ruby'
+Plugin 'noprompt/vim-yardoc'
 
 call vundle#end()
 
