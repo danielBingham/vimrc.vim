@@ -24,6 +24,7 @@ Plugin 'scrooloose/syntastic'
 Plugin 'xolox/vim-misc'
 Plugin 'kien/ctrlp.vim'
 Plugin 'vadimr/bclose.vim'
+Plugin 'mileszs/ack.vim'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
@@ -105,6 +106,12 @@ augroup mySyntastic
   au!
   au FileType tex let b:syntastic_mode = "passive"
 augroup END
+
+" ----- mileszs/ack.vim -----
+" Make :ack use ag instead of ack.
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
 
 " ----- pangloss/vim-javascript settings -----
 " Highlight jsdoc
