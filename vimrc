@@ -37,6 +37,7 @@ Plugin 'othree/yajs.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
 Plugin 'othree/html5.vim'
 Plugin 'pangloss/vim-javascript'
+Plugin 'mxw/vim-jsx'
 Plugin 'vim-ruby/vim-ruby'
 Plugin 'noprompt/vim-yardoc'
 
@@ -64,7 +65,7 @@ au FileType ruby setlocal ts=2 sw=2 et
 " Fold by syntax, don't fold deeper than 10 levels.
 set foldmethod=syntax
 set foldnestmax=10
-set nofoldenable
+set foldlevelstart=1
 
 " PHP Specific folding
 let g:php_folding=2
@@ -93,6 +94,9 @@ let g:airline_detect_paste=1
 
 " Show airline for tabs too
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#show_splits = 0
+let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#extensions#tabline#buffer_idx_mode = 0
 
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
@@ -113,6 +117,7 @@ augroup END
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
+cnoreabbrev Ack Ack!
 
 " ----- pangloss/vim-javascript settings -----
 " Highlight jsdoc
