@@ -140,6 +140,7 @@ let g:javascript_plugin_jsdoc = 1
 hi clear SignColumn
 " In vim-airline, only display "hunks" if the diff is non-zero
 let g:airline#extensions#hunks#non_zero_only = 1
+let g:gitgutter_max_signs = 1000  " 
 
 " ----- sheerun/polyglot (php) -----
 " Override syntax coloring for php comments to highlight phpdoc
