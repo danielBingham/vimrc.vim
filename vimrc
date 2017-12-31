@@ -16,30 +16,40 @@ Plugin 'gmarik/Vundle.vim'
 " ----- Making Vim look good ------------------------------------------
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " ----- Vim as a programmer's text editor -----------------------------
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
-Plugin 'scrooloose/syntastic'
 Plugin 'xolox/vim-misc'
-Plugin 'kien/ctrlp.vim'
 Plugin 'vadimr/bclose.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-fugitive'
 
+" ----- Folding -------------------------------------------------------
+Plugin 'Konfekt/FastFold'
+
 " ----- Syntax plugins ------------------------------------------------
-Plugin 'tpope/vim-markdown'
-Plugin 'jtratner/vim-flavored-markdown'
-Plugin 'othree/yajs.vim'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'othree/html5.vim'
-Plugin 'pangloss/vim-javascript'
-Plugin 'mxw/vim-jsx'
-Plugin 'vim-ruby/vim-ruby'
-Plugin 'noprompt/vim-yardoc'
+Plugin 'sheerun/vim-polyglot'
+
+"Plugin 'tpope/vim-markdown'
+"Plugin 'jtratner/vim-flavored-markdown'
+"Plugin 'othree/yajs.vim'
+" Plugin 'pangloss/vim-javascript'
+"Plugin 'othree/javascript-libraries-syntax.vim'
+"Plugin 'othree/html5.vim'
+" Plugin 'mxw/vim-jsx'
+"Plugin 'vim-ruby/vim-ruby'
+"Plugin 'noprompt/vim-yardoc'
+"Plugin 'hashivim/vim-terraform'
+"Plugin 'kchmck/vim-coffee-script'
+"Plugin 'pearofducks/ansible-vim'
+"Plugin 'hashivim/vim-hashicorp-tools'
 
 call vundle#end()
 
@@ -61,11 +71,9 @@ set ts=4 sw=4 et
 au FileType ruby setlocal ts=2 sw=2 et
 
 " Folding
-"
-" Fold by syntax, don't fold deeper than 10 levels.
 set foldmethod=syntax
-set foldnestmax=10
-set foldlevelstart=1
+set foldnestmax=6
+set foldlevelstart=3
 
 " PHP Specific folding
 let g:php_folding=2
@@ -88,9 +96,15 @@ colorscheme solarized
 " ----- bling/vim-airline settings -----
 " Always show statusbar
 set laststatus=2
+let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
 
 " Show PASTE if in paste mode
 let g:airline_detect_paste=1
+let g:airline#extensions#default#layout = [
+      \ [ 'a', 'b', 'c' ],
+      \ [  'z', 'error' ]
+      \ ]
 
 " Show airline for tabs too
 let g:airline#extensions#tabline#enabled = 1
@@ -98,19 +112,15 @@ let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#buffer_idx_mode = 0
 
+" ----- Fzf ------
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
 let g:nerdtree_tabs_open_on_console_startup = 1
-
-" ----- scrooloose/syntastic settings -----
-let g:syntastic_error_symbol = '✘'
-let g:syntastic_warning_symbol = "▲"
-augroup mySyntastic
-  au!
-  au FileType tex let b:syntastic_mode = "passive"
-augroup END
 
 " ----- mileszs/ack.vim -----
 " Make :ack use ag instead of ack.
@@ -128,4 +138,17 @@ let g:javascript_plugin_jsdoc = 1
 hi clear SignColumn
 " In vim-airline, only display "hunks" if the diff is non-zero
 let g:airline#extensions#hunks#non_zero_only = 1
+let g:gitgutter_max_signs = 1000  " 
+
+" ----- sheerun/polyglot (php) -----
+" Override syntax coloring for php comments to highlight phpdoc
+function! PhpSyntaxOverride()
+  hi! def link phpDocTags  phpDefine
+  hi! def link phpDocParam phpType
+endfunction
+
+augroup phpSyntaxOverride
+  autocmd!
+  autocmd FileType php call PhpSyntaxOverride()
+augroup END
 
