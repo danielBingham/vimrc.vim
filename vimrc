@@ -22,9 +22,10 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'scrooloose/nerdtree'
 Plugin 'jistr/vim-nerdtree-tabs'
 Plugin 'xolox/vim-misc'
-Plugin 'kien/ctrlp.vim'
 Plugin 'vadimr/bclose.vim'
 Plugin 'mileszs/ack.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 
 " ----- Working with Git ----------------------------------------------
 Plugin 'airblade/vim-gitgutter'
@@ -111,12 +112,9 @@ let g:airline#extensions#tabline#show_splits = 0
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
 let g:airline#extensions#tabline#buffer_idx_mode = 0
 
-" ----- CtrlP ------
-let g:ctrlp_custom_ignore = {
-\ 'dir': 'build$'
-\ }
-let g:ctrlp_max_files=0
-let g:ctrlp_max_depth=40
+" ----- Fzf ------
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 
 " ----- jistr/vim-nerdtree-tabs -----
 " Open/close NERDTree Tabs with \t
