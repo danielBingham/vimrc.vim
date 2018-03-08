@@ -66,6 +66,9 @@ set showcmd
 set incsearch
 set hlsearch
 set ts=4 sw=4 et
+set textwidth=100
+" Don't automatically wrap text
+set fo-=t
 
 " Ruby specific spacing
 au FileType ruby setlocal ts=2 sw=2 et
