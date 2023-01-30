@@ -17,6 +17,7 @@ Plugin 'gmarik/Vundle.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'gcmt/taboo.vim'
 
 " ----- Vim as a programmer's text editor -----------------------------
 Plugin 'scrooloose/nerdtree'
@@ -36,6 +37,7 @@ Plugin 'Konfekt/FastFold'
 
 " ----- Syntax plugins ------------------------------------------------
 Plugin 'sheerun/vim-polyglot'
+Plugin 'lifepillar/pgsql.vim'
 
 "Plugin 'tpope/vim-markdown'
 "Plugin 'jtratner/vim-flavored-markdown'
@@ -71,9 +73,9 @@ set ts=4 sw=4 et
 au FileType ruby setlocal ts=2 sw=2 et
 
 " Folding
-set foldmethod=syntax
+set foldmethod=indent
 set foldnestmax=6
-set foldlevelstart=3
+set foldlevelstart=1
 
 " PHP Specific folding
 let g:php_folding=2
@@ -121,6 +123,8 @@ let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
 " To have NERDTree always open on startup
 let g:nerdtree_tabs_open_on_console_startup = 1
+" Ignore python's compiled binaries
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 
 " ----- mileszs/ack.vim -----
 " Make :ack use ag instead of ack.
@@ -146,6 +150,9 @@ function! PhpSyntaxOverride()
   hi! def link phpDocTags  phpDefine
   hi! def link phpDocParam phpType
 endfunction
+
+"------- lifepillar/pgsql.vim ------
+let g:sql_type_default = 'pgsql'
 
 augroup phpSyntaxOverride
   autocmd!
