@@ -39,6 +39,9 @@ Plugin 'Konfekt/FastFold'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'lifepillar/pgsql.vim'
 
+packadd YouCompleteMe
+Plugin 'ternjs/tern_for_vim'
+
 "Plugin 'tpope/vim-markdown'
 "Plugin 'jtratner/vim-flavored-markdown'
 "Plugin 'othree/yajs.vim'
