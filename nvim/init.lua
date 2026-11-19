@@ -14,6 +14,9 @@ require('packer').startup({function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
 
+  ----- Tree Sitter: used for more advanced parsing -------------------
+use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+
   ----- Making Vim look good ------------------------------------------
   use {
       'maxmx03/solarized.nvim',
