@@ -13,7 +13,7 @@ end
 require('packer').startup({function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
-  
+
   ----- Making Vim look good ------------------------------------------
   use {
       'maxmx03/solarized.nvim',
@@ -39,6 +39,7 @@ require('packer').startup({function(use)
   ----- Working with Git ----------------------------------------------
   use 'airblade/vim-gitgutter'
   use 'tpope/vim-fugitive'
+  use 'barrettruth/diffs.nvim'
 
   ----- Folding -------------------------------------------------------
   use 'Konfekt/FastFold'
@@ -75,8 +76,8 @@ vim.opt.number = true
 vim.opt.showcmd = true
 vim.opt.incsearch = true
 vim.opt.hlsearch = true
-vim.opt.ts=4 
-vim.opt.sw=4 
+vim.opt.ts=4
+vim.opt.sw=4
 vim.opt.et = true
 
 vim.opt.foldmethod = 'indent'
@@ -84,6 +85,9 @@ vim.opt.foldnestmax = 6
 vim.opt.foldlevelstart=1
 
 vim.cmd[[colorscheme solarized]]
+
+-- Enable virtual text diagnostics --
+vim.diagnostic.config({ virtual_text=true })
 
 -- LSP Mappings + Settings -----------------------------------------------------
 -- modified from: https://github.com/neovim/nvim-lspconfig#suggested-configuration
@@ -124,7 +128,7 @@ capabilities.textDocument.completion.completionItem.snippetSupport = true
 -- All LSPs in this list need to be manually installed via NPM/PNPM/whatevs
 local lspconfig = require('lspconfig')
 
-lspconfig.tsserver.setup {
+lspconfig.ts_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities
 }
@@ -296,3 +300,21 @@ endif
 cnoreabbrev Ack Ack!
 ]]
 
+--- Remove trailing whitespace on save ---
+vim.api.nvim_create_autocmd({ "BufWritePre" }, {
+    pattern = {"*"},
+    callback = function(ev)
+        save_cursor = vim.fn.getpos(".")
+        vim.cmd([[%s/\s\+$//e]])
+        vim.fn.setpos(".", save_cursor)
+    end,
+})
+
+--- Let barrettruth/diff highlight patches and diff files ---
+vim.api.nvim_create_autocmd('FileType', {
+  group = vim.api.nvim_create_augroup('MyDiffs', { clear = true }),
+  pattern = { 'diff', 'gitsendemail' },
+  callback = function(event)
+    require('diffs').attach(event.buf)
+  end,
+})
